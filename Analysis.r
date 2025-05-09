@@ -262,7 +262,7 @@ cor_lag3
 max_lag <- 500  # Maximum lag in months
 correlations <- sapply(1:max_lag, function(lag) cor(lag(data$No.of.Sunspots, lag), data$Temperature, use = "complete.obs"))
 
-# Use loess smoothing for a smoother curve
+# Using loess smoothing for a smoother curve
 smoothed_curve <- loess(correlations ~ I(1:max_lag), span = 0.1)  # Adjusting the 'span' for smoothness
 smoothed_values <- predict(smoothed_curve)
 
@@ -284,7 +284,7 @@ axis(2, cex.axis = 1.3, font = 2)
 max_lag <- 12 #
 correlations <- sapply(1:max_lag, function(lag) cor(lag(data$No.of.Sunspots, lag), data$L.alpha, use = "complete.obs"))
 
-# Plot the correlations
+# Plotting the correlations
 plot(1:max_lag, correlations, type = "b", xlab = "Lag (months)", ylab = "Correlation with Temperature",
      main = "Correlation Between Sunspots and Lyman Alpha at Different Lags")
 
@@ -294,11 +294,11 @@ plot(1:max_lag, correlations, type = "b", xlab = "Lag (months)", ylab = "Correla
 max_lag <- 800  # Maximum lag in months
 correlations <- sapply(1:max_lag, function(lag) cor(lag(data$Temperature, lag), data$Tsi, use = "complete.obs"))
 
-# Use loess smoothing for a smoother curve
+# Using loess smoothing for a smoother curve
 smoothed_curve <- loess(correlations ~ I(1:max_lag), span = 0.1)  # Adjust the 'span' for smoothness
 smoothed_values <- predict(smoothed_curve)
 
-# Plot the smooth curve with enhanced aesthetics
+# Plotting the smooth curve with enhanced aesthetics
 plot(1:max_lag, smoothed_values, type = "l", col = "black", lwd = 3,
      xlab = "Lag (months)", ylab = "Correlation with GMSAT", 
      main = "Correlation Between GMSAT and TSI at Different Lags",
@@ -325,7 +325,7 @@ data <- data %>%
          TSI_Lag3 = lag(Tsi, 3),
          TSI_Lag4 = lag(Tsi, 4))
 
-# View the resulting data with lagged TSI variables
+# Viewing the resulting data with lagged TSI variables
 View(data)
 # Calculate correlations
 cor_TSI_Lag0 <- cor(data$Temperature, data$TSI_Lag0, use = "complete.obs")
@@ -356,18 +356,18 @@ plot(1:max_lag, correlations, type = "b", xlab = "Lag (months)", ylab = "Correla
 
 library(vars)
 
-# Create a data frame with the relevant variables
+# Creating a data frame with the relevant variables
 var_data1 <- data[, c("No.of.Sunspots", "Tsi","Temperature")]
 var_data1 = na.omit(var_data1)
 var_data1 <- var_data1[328:843, ]
 
-# Determine the optimal lag length
+# Determining the optimal lag length
 lag_selection <- VARselect(var_data1, lag.max = 15, type = "const")
 
 # View the selection criteria
 print(lag_selection)
 
-# Fit a VAR model
+# Fitting a VAR model
 model_1 <- VAR(var_data1, p = 13)  
 
 # Summary of the model
@@ -378,17 +378,17 @@ forecast_var <- predict(model_1, n.ahead = 12)  # Forecast next 12 months
 plot(forecast_var)
 
 
-# Create a data frame with the relevant variables
+# Creating a data frame with the relevant variables
 var_data2 <- data[, c("Sunspots_Lag370", "Tsi","Temperature")]
 var_data2 = na.omit(var_data2)
 
-# Determine the optimal lag length
+# Determining the optimal lag length
 lag_selection <- VARselect(var_data2, lag.max = 15, type = "const")
 
-# View the selection criteria
+# Viewing the selection criteria
 print(lag_selection)
 
-# Fit a VAR model
+# Fitting a VAR model
 model_2 <- VAR(var_data2, p = 6) 
 
 # Summary of the model
@@ -399,7 +399,7 @@ summary(model_2)
 
 
 
-# Extract AIC and BIC for each model
+# Extracting AIC and BIC for each model
 aic_model1 <- AIC(model_1)
 bic_model1 <- BIC(model_1)
 
@@ -409,7 +409,7 @@ bic_model2 <- BIC(model_2)
 aic_model3 <- AIC(model_3)
 bic_model3 <- BIC(model_3)
 
-# Compare the AIC and BIC values
+# Comparing the AIC and BIC values
 print(data.frame(Model = c("Model 1", "Model 2", "Model 3"),
                  AIC = c(aic_model1, aic_model2, aic_model3),
                  BIC = c(bic_model1, bic_model2, bic_model3)))
@@ -422,19 +422,19 @@ print(data.frame(Model = c("Model 1", "Model 2", "Model 3"),
 
 
 
-# Perform spectral analysis for TSI
+# Performing spectral analysis for TSI
 tsi_ts <- ts(data$Tsi, start = c(1954, 1), frequency = 12)
 spec.pgram(tsi_ts, taper = 0.1, log = "no", 
            main = "Spectral Analysis of TSI", 
            xlab = "Frequency", ylab = "Spectral Density")
 
-# Perform spectral analysis for Sunspots
+# Performing spectral analysis for Sunspots
 sunspots_ts <- ts(data$No.of.Sunspots, start = c(1954, 1), frequency = 12)
 spec.pgram(sunspots_ts, taper = 0.1, log = "no", 
            main = "Spectral Analysis of Sunspots", 
            xlab = "Frequency", ylab = "Spectral Density")
 
-# Perform spectral analysis for GMSAT (Temperature)
+# Performing spectral analysis for GMSAT (Temperature)
 temp_ts <- ts(data$Temperature, start = c(1954, 1), frequency = 12)
 spec.pgram(temp_ts, taper = 0.1, log = "no", 
            main = "Spectral Analysis of GMSAT", 
@@ -446,16 +446,16 @@ spec.pgram(Lyman_ts, taper = 0.1, log = "no",
            main = "Spectral Analysis of Lyman-alpha", 
            xlab = "Frequency", ylab = "Spectral Density")
 
-# Reset graphical parameters to default after plotting
+# Reseting graphical parameters to default after plotting
 par(mfrow = c(1, 1))
 
 
-# Load the dataset
+# Loading the dataset
 grf_data <- read.csv("GRF.csv")
 head(grf_data)
 
 
-# Load necessary libraries
+# Loading necessary libraries
 library(tidyverse)
 library(forecast)
 library(tseries)
@@ -466,7 +466,7 @@ combined_data$Temperature_scaled <- (combined_data$Temperature - min(combined_da
 combined_data$Total_scaled <- (combined_data$Total - min(combined_data$Total)) / 
   (max(combined_data$Total) - min(combined_data$Total))
 
-# Plot the min-max scaled data
+# Plotting the min-max scaled data
 ggplot(combined_data, aes(x = Date)) +
   geom_line(aes(y = Temperature_scaled, color = "GMSAT"), size = 1) +  # Scaled Temperature line
   geom_line(aes(y = Total_scaled, color = "GRF"), size = 1) +  # Scaled Total line
@@ -482,20 +482,20 @@ ggplot(combined_data, aes(x = Date)) +
   theme(legend.title = element_blank())  # Remove legend title
 library(vars)
 
-# Create a data frame with the relevant variables including the "Total" column from GRF data
+# Creating a data frame with the relevant variables including the "Total" column from GRF data
 var_data4 <- combined_data[, c("No.of.Sunspots", "Tsi", "Temperature", "Total")]
 var_data4 <- na.omit(var_data4)
 # Determine the optimal lag length for the new model
 lag_selection <- VARselect(var_data4, lag.max = 15, type = "const")
 
-# View the selection criteria
+# Viewing the selection criteria
 print(lag_selection)
 
 # The optimal lag order (p) according to AIC, BIC, HQIC, etc.
 optimal_lag <- lag_selection$selection
 print(optimal_lag)
 
-# Fit the new VAR model with the "Total" variable included
+# Fitting the new VAR model with the "Total" variable included
 model4 <- VAR(var_data4, p = 13)
 
 # Summary of the new model
@@ -526,10 +526,10 @@ plot(forecast_var)
 
 
 
-# Load necessary libraries
+# Loading necessary libraries
 library(forecast)
 
-# Convert relevant columns to a numeric matrix
+# Converting relevant columns to a numeric matrix
 xreg_without_grf <- as.matrix(combined_data[, c("Tsi", "No.of.Sunspots", "Sunspots_Lag1", "Sunspots_Lag2", "Sunspots_Lag3")])
 xreg_with_grf <- as.matrix(combined_data[, c("Tsi", "No.of.Sunspots", "Sunspots_Lag1", "Sunspots_Lag2", "Sunspots_Lag3", "Total")])
 
@@ -539,47 +539,14 @@ model_without_grf <- auto.arima(combined_data$Temperature, xreg = xreg_without_g
 # Model 2: ARIMA model with GRF
 model_with_grf <- auto.arima(combined_data$Temperature, xreg = xreg_with_grf)
 
-# Compare AIC values
+# Comparing AIC values
 aic_without_grf <- AIC(model_without_grf)
 aic_with_grf <- AIC(model_with_grf)
 
-# Print the AIC values
+# Printing the AIC values
 cat("AIC without GRF:", aic_without_grf, "\n")
 cat("AIC with GRF:", aic_with_grf, "\n")
 
-
-
-
-
-# Perform Fourier Transform on pre-whitened temperature residuals
-fft_temp <- fft(resi_temp)
-n_temp <- length(fft_temp)
-
-# Perform Fourier Transform on pre-whitened TSI residuals
-fft_tsi <- fft(resi_tsi)
-n_tsi <- length(fft_tsi)
-
-# Compute the frequency vector (frequencies corresponding to the Fourier coefficients)
-freq_temp <- (0:(n_temp-1)) / n_temp
-freq_tsi <- (0:(n_tsi-1)) / n_tsi
-
-# Compute the amplitude (magnitude) of the Fourier coefficients
-amp_temp <- Mod(fft_temp) / n_temp
-amp_tsi <- Mod(fft_tsi) / n_tsi
-
-# Plot the amplitude spectrum for Temperature
-plot(freq_temp[1:(n_temp/2)], amp_temp[1:(n_temp/2)], type = "l", col = "blue",
-     xlab = "Frequency", ylab = "Amplitude", main = "Fourier Amplitude Spectrum - Temperature")
-
-# Plot the amplitude spectrum for TSI
-plot(freq_tsi[1:(n_tsi/2)], amp_tsi[1:(n_tsi/2)], type = "l", col = "red",
-     xlab = "Frequency", ylab = "Amplitude", main = "Fourier Amplitude Spectrum - TSI")
-
-# Optionally, you can overlay both spectra for comparison
-plot(freq_temp[1:(n_temp/2)], amp_temp[1:(n_temp/2)], type = "l", col = "blue",
-     xlab = "Frequency", ylab = "Amplitude", main = "Fourier Amplitude Spectrum - Temperature and TSI")
-lines(freq_tsi[1:(n_tsi/2)], amp_tsi[1:(n_tsi/2)], col = "red")
-legend("topright", legend = c("Temperature", "TSI"), col = c("blue", "red"), lty = 1)
 
 
 

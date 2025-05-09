@@ -26,6 +26,8 @@ The study integrates solar variables like:
 - NASA GISS global temperature anomaly data
 - NOAA's Global Radiative Forcing Index (GRF)
 
+For Detailed work ---> [Document](https://www.notion.so/Investigating-Temporal-relationship-between-Sunspots-and-Global-mean-surafce-air-temperature-1ee1ffda64fb803c9ce7fba47cf1ac26?pvs=4)
+
 ## 🎯 Objectives
 
 1. Understand how sunspot activity affects surface air temperature.

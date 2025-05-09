@@ -2,6 +2,9 @@
 
 ![Status](https://img.shields.io/badge/status-Completed-brightgreen)
 
+![20250510_0021_Solar Impact on Climate_simple_compose_01jtv643pwf8y88w1rzem6qwbw](https://github.com/user-attachments/assets/ba767cc5-4822-4bd2-ae61-868f17c2a829)
+
+
 ## 📚 Data Sources
 
 - [NASA GISS Global Temperature Anomaly](https://data.giss.nasa.gov/gistemp/)
